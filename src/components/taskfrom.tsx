@@ -1,22 +1,23 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
-type taskValue = {
-  task: string;
-};
+// type taskValue = {
+//   task: string;
+// };
 
-const TaskForm = (onAddTask) => {
+const TaskForm = () => {
   const [inputValue, setInputValue] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (inputValue.trim() === "") return;
-    onAddTask({ task: inputValue });
   };
 
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <input value={inputValue} onChange={} />
+        <input
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+        />
       </form>
     </>
   );
