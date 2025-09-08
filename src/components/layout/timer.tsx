@@ -44,25 +44,7 @@ export const Timer = () => {
   return (
     <>
       <div className="timer-container">
-        <h2>Countdown Timer</h2>
-        <input
-          type="text"
-          placeholder="Task"
-          value={taskName}
-          onChange={(e) => setTaskName(e.target.value)}
-        />
-        <input
-          type="datetime-local"
-          value={eventDate}
-          onChange={(e) => setEventDate(e.target.value)}
-        />
-        <button onClick={startTimer} disabled={isActive}>
-          <button disabled={isActive}></button>
-          Start Timer
-        </button>
-        <div className="timer-display">
-          {timeLeft && <p>Time Left: {timeLeft}</p>}
-        </div>
+        
       </div>
     </>
   );
