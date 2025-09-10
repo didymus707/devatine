@@ -11,11 +11,11 @@ type Task = {
 export const TaskList = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
 
-  const addTask = (task: Task, duration: number) => {
+  const addTask = (task: Task) => {
     const newTask: Task = {
       id: uuidv4(),
       name: task.name,
-      duration: duration,
+      duration: task.duration,
       completed: false,
     };
     setTasks([...tasks, newTask]);
