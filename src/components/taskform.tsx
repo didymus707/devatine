@@ -19,7 +19,9 @@ interface Block {
 const TaskForm = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [taskValue, setTaskValue] = useState("");
-  const [taskDuration, setTaskDuration] = useState(0);
+  const [taskDuration, setTaskDuration] = useState<number | undefined>(
+    undefined
+  );
   const [sessionValue, setSessionValue] = useState("");
 
   // const handleSubmit = (e: React.FormEvent) => {
@@ -30,8 +32,14 @@ const TaskForm = () => {
   //   });
   // };
 
-  const addTasks = () => {
-    if (taskValue.trim() === "" || taskDuration <= 0) return;
+  const addTasks = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (
+      taskValue.trim() === "" ||
+      taskDuration === undefined ||
+      taskDuration <= 0
+    )
+      return;
 
     const newTask: Task = {
       id: uuidv4(),
@@ -40,6 +48,7 @@ const TaskForm = () => {
       completed: false,
     };
     setTasks([...tasks, newTask]);
+    console.log(tasks);
   };
 
   return (
@@ -92,18 +101,36 @@ const TaskForm = () => {
                   onChange={(e) => setTaskValue(e.target.value)}
                 />
                 <input
-                  min={1}
+                  min={0}
                   type="number"
                   id="task-in-minutes"
                   name="task-in-minutes"
-                  value={taskDuration}
-                  placeholder="Duration in minutes"
-                  onChange={(e) => setTaskDuration(Number(e.target.value))}
+                  value={taskDuration ?? ""}
+                  placeholder="Minutes"
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    setTaskDuration(
+                      val === "" ? undefined : Number(e.target.value)
+                    );
+                  }}
                 />
                 <button onClick={addTasks}>Add</button>
               </div>
             </div>
           </form>
+        </div>
+
+        <div className="task-list">
+          {tasks.map((task) => (
+            <div className="task-item flex space-between" key={task.id}>
+              <span>{task.name}</span>
+              <span>{task.duration} mins</span>
+            </div>
+          ))}
+        </div>
+
+        <div className="start-session">
+          <button className="start-session-btn">Start Session</button>
         </div>
       </div>
     </>
