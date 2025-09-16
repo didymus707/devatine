@@ -27,13 +27,13 @@ function App() {
             <p className="text-center text-lg">
               No time blocks yet. Create your first session to get started!
             </p>
-            <span className="text-md py-4">
+            <span className="text-md py-2">
               Example: 4-hour study block with reading (20min), guitar practice
               (30min), coding challenges (1hr), and project work (90min)
             </span>
 
             <div
-              className="flex bg-black p-3 rounded-lg mt-4"
+              className="flex bg-black p-3 rounded-lg mt-2 align-center justify-center w-[14%] mx-auto"
               onClick={() => {}}
             >
               <Add size="1.4em" color={"white"} classNames={["mr-4"]} />
