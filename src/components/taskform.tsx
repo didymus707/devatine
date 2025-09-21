@@ -1,20 +1,5 @@
 import { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
-
-type Task = {
-  id: string;
-  name: string;
-  duration: number;
-  completed: boolean;
-};
-
-interface Block {
-  id: string;
-  name: string;
-  duration: number;
-  tasks: Task[];
-  complteted: boolean;
-}
+import type { Task } from "./types";
 
 const TaskForm = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -42,7 +27,7 @@ const TaskForm = () => {
       return;
 
     const newTask: Task = {
-      id: uuidv4(),
+      id: crypto.randomUUID(),
       name: taskValue,
       duration: taskDuration,
       completed: false,
