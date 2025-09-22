@@ -1,33 +1,24 @@
 import { useState } from "react";
 import type { Task } from "./types";
 
-const TaskForm = () => {
+interface TaskFormProps {
+  blockId: string;
+}
+
+const TaskForm: React.FC<TaskFormProps> = ({ blockId }) => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [taskValue, setTaskValue] = useState("");
   const [taskDuration, setTaskDuration] = useState<number | undefined>(
     undefined
   );
-  const [sessionValue, setSessionValue] = useState("");
-
-  // const handleSubmit = (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   onAddTask({
-  //     id: uuidv4(),
-  //     name: sessionValue,
-  //   });
-  // };
 
   const addTasks = (e: React.FormEvent) => {
     e.preventDefault();
-    if (
-      taskValue.trim() === "" ||
-      taskDuration === undefined ||
-      taskDuration <= 0
-    )
-      return;
+    if (!taskValue.trim() || !taskDuration || taskDuration <= 0) return;
 
     const newTask: Task = {
       id: crypto.randomUUID(),
+      blockId: blockId,
       name: taskValue,
       duration: taskDuration,
       completed: false,
@@ -38,44 +29,9 @@ const TaskForm = () => {
 
   return (
     <>
-      <div className="time-block-card">
-        <div className="time-block-header">
-          <h3>Create Time Block Session</h3>
-        </div>
-
-        <div className="form-container">
+      <div className="task-card">
+        <div className="task-form-container">
           <form className="task-form">
-            <div className="form-head">
-              <label htmlFor="session-name">Session Name</label>
-              <input
-                type="text"
-                id="session-name"
-                value={sessionValue}
-                onChange={(e) => setSessionValue(e.target.value)}
-              />
-            </div>
-
-            <div className="duration-wrapper flex space-between">
-              <div className="hours">
-                <label htmlFor="total-session-duration">Total Hours</label>
-                <input
-                  type="number"
-                  id="total-session-duration"
-                  min="0"
-                  max="23"
-                />
-              </div>
-              <div className="minutes">
-                <label htmlFor="total-session-minutes">Total Minutes</label>
-                <input
-                  type="number"
-                  id="total-session-minutes"
-                  min="0"
-                  max="59"
-                />
-              </div>
-            </div>
-
             <div className="session-tasks-wrapper">
               <p className="session-tasks">Add Tasks to your Session</p>
               <div className="flex">
@@ -112,10 +68,6 @@ const TaskForm = () => {
               <span>{task.duration} mins</span>
             </div>
           ))}
-        </div>
-
-        <div className="start-session">
-          <button className="start-session-btn">Start Session</button>
         </div>
       </div>
     </>
