@@ -3,16 +3,16 @@ import type { Task } from "./types";
 
 interface TaskFormProps {
   blockId: string;
+  addTasks: (blockId: string, task: Task) => void;
 }
 
-const TaskForm: React.FC<TaskFormProps> = ({ blockId }) => {
-  const [tasks, setTasks] = useState<Task[]>([]);
+const TaskForm: React.FC<TaskFormProps> = ({ blockId, addTasks }) => {
   const [taskValue, setTaskValue] = useState("");
   const [taskDuration, setTaskDuration] = useState<number | undefined>(
     undefined
   );
 
-  const addTasks = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!taskValue.trim() || !taskDuration || taskDuration <= 0) return;
 
@@ -23,14 +23,16 @@ const TaskForm: React.FC<TaskFormProps> = ({ blockId }) => {
       duration: taskDuration,
       completed: false,
     };
-    setTasks([...tasks, newTask]);
+    addTasks(blockId, newTask);
+    setTaskValue("");
+    setTaskDuration(undefined);
   };
 
   return (
     <>
       <div className="task-card">
         <div className="task-form-container">
-          <form className="task-form">
+          <form className="task-form" onSubmit={handleSubmit}>
             <div className="session-tasks-wrapper">
               <p className="session-tasks">Add Tasks to your Session</p>
               <div className="flex">
@@ -54,7 +56,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ blockId }) => {
                     );
                   }}
                 />
-                <button onClick={addTasks}>Add</button>
+                <button type="submit">Add</button>
               </div>
             </div>
           </form>
