@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import type { Block, Task } from "./types";
 import { Add } from "./primitives/icons";
+import TaskForm from "./taskform";
 
 export const BlockForm = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [blocks, setBlocks] = useState<Block[]>([]);
   const [sessionEnded, setSessionEnded] = useState<boolean>(false);
   const [sessionName, setSessionName] = useState<string | undefined>("");
   const [sessionHours, setSessionHours] = useState<number | undefined>(
@@ -20,7 +22,27 @@ export const BlockForm = () => {
     const totalDuration = sessionHours! * 60 + (sessionMinutes || 0);
     const newBlock: Block = {
       id: crypto.randomUUID(),
+      name: sessionName || "Untitled Block",
+      duration: totalDuration,
+      tasks: tasks,
+      completed: sessionEnded,
     };
+    setBlocks([...blocks, newBlock]);
+    setSessionName("");
+    setSessionHours(undefined);
+    setSessionMinutes(undefined);
+    setTasks([]);
+    setSessionEnded(false);
+  };
+
+  const addTasksToBlock = (blockId: string, task: Task) => {
+    setBlocks((prevBlock) =>
+      prevBlock.map((block) =>
+        block.id === blockId
+          ? { ...block, tasks: [...block.tasks, task] }
+          : block
+      )
+    );
   };
 
   return (
@@ -80,6 +102,14 @@ export const BlockForm = () => {
                   }}
                 />
               </div>
+            </div>
+
+            
+
+            <div className="start-session">
+              <button className="start-session-btn" type="submit">
+                Create Session
+              </button>
             </div>
           </form>
         </div>
