@@ -61,15 +61,6 @@ const TaskForm: React.FC<TaskFormProps> = ({ blockId, addTasks }) => {
             </div>
           </form>
         </div>
-
-        <div className="task-list">
-          {tasks.map((task) => (
-            <div className="task-item flex space-between" key={task.id}>
-              <span>{task.name}</span>
-              <span>{task.duration} mins</span>
-            </div>
-          ))}
-        </div>
       </div>
     </>
   );
