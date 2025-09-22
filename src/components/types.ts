@@ -3,11 +3,12 @@ export interface Block {
   name: string;
   duration: number;
   tasks: Task[];
-  complteted: boolean;
+  completed: boolean;
 }
 
 export interface Task {
   id: string;
+  blockId: string;
   name: string;
   duration: number;
   completed: boolean;
