@@ -24,7 +24,6 @@ const TaskForm: React.FC<TaskFormProps> = ({ blockId }) => {
       completed: false,
     };
     setTasks([...tasks, newTask]);
-    console.log(tasks);
   };
 
   return (
