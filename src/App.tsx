@@ -1,12 +1,12 @@
+import { BlockForm } from "./components/blockForm";
 import { Add } from "./components/primitives/icons";
-import TaskForm from "./components/taskform";
 
 function App() {
   return (
     <>
-      <div className="app-container w-full h-full flex flex-col gap-4 p-4 font-sans border-indigo-500">
-        <div className="header flex flex-col justify-center text-center font-sans border-indigo-500">
-          <h1 className="my-4 text-3xl font-bold border-rose-500">
+      <div className="app-container w-full h-full flex flex-col gap-4 p-4 font-sans">
+        <div className="header flex flex-col justify-center text-center">
+          <h1 className="my-4 text-3xl font-bold">
             Time Block Manager
           </h1>
           <p className="subtitle text-xl antialiased text-[#717182]">
@@ -42,7 +42,7 @@ function App() {
               </p>
             </div>
           </div>
-          <TaskForm />
+          <BlockForm />
         </div>
       </div>
     </>
