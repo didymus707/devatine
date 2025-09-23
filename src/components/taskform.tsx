@@ -31,24 +31,29 @@ const TaskForm: React.FC<TaskFormProps> = ({ blockId, addTasks }) => {
   return (
     <>
       <div className="task-card">
-        <div className="task-form-container">
-          <form className="task-form" onSubmit={handleSubmit}>
+        <div className="task-card-container">
+          <div className="task-form">
             <div className="session-tasks-wrapper">
-              <p className="session-tasks">Add Tasks to your Session</p>
+              <p className="session-tasks my-4 text-lg font-medium">
+                Add Tasks to your Session
+              </p>
               <div className="flex">
                 <input
+                  id="task-name"
                   type="text"
                   value={taskValue}
-                  placeholder="Task name( e.g Read Percy Jackson)"
+                  className="bg-gray-100 rounded-md p-2 mt-2 basis-3"
                   onChange={(e) => setTaskValue(e.target.value)}
+                  placeholder="Task name( e.g Read Percy Jackson)"
                 />
                 <input
                   min={0}
                   type="number"
                   id="task-in-minutes"
+                  placeholder="Minutes"
                   name="task-in-minutes"
                   value={taskDuration ?? ""}
-                  placeholder="Minutes"
+                  className="bg-gray-100 rounded-md p-2 mt-2 basis-2"
                   onChange={(e) => {
                     const val = e.target.value;
                     setTaskDuration(
@@ -56,10 +61,16 @@ const TaskForm: React.FC<TaskFormProps> = ({ blockId, addTasks }) => {
                     );
                   }}
                 />
-                <button type="submit">Add</button>
+                <button
+                  type="button"
+                  className="basis-1 border-1 border-gray-200 rounded-lg p-2 mt-2"
+                  onClick={handleSubmit}
+                >
+                  Add
+                </button>
               </div>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </>
