@@ -37,12 +37,12 @@ const TaskForm: React.FC<TaskFormProps> = ({ blockId, addTasks }) => {
               <p className="session-tasks my-4 text-lg font-medium">
                 Add Tasks to your Session
               </p>
-              <div className="flex">
+              <div className="flex justify-between w-full gap-4">
                 <input
                   id="task-name"
                   type="text"
                   value={taskValue}
-                  className="bg-gray-100 rounded-md p-2 mt-2 basis-3"
+                  className="bg-gray-100 rounded-md p-2 mt-2 basis-[65%]"
                   onChange={(e) => setTaskValue(e.target.value)}
                   placeholder="Task name( e.g Read Percy Jackson)"
                 />
@@ -53,7 +53,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ blockId, addTasks }) => {
                   placeholder="Minutes"
                   name="task-in-minutes"
                   value={taskDuration ?? ""}
-                  className="bg-gray-100 rounded-md p-2 mt-2 basis-2"
+                  className="bg-gray-100 rounded-md p-2 mt-2 basis-[15%"
                   onChange={(e) => {
                     const val = e.target.value;
                     setTaskDuration(
@@ -63,7 +63,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ blockId, addTasks }) => {
                 />
                 <button
                   type="button"
-                  className="basis-1 border-1 border-gray-200 rounded-lg p-2 mt-2"
+                  className="basis-[15%] border-1 border-gray-200 rounded-lg p-2 mt-2"
                   onClick={handleSubmit}
                 >
                   Add
