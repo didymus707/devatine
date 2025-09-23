@@ -48,70 +48,80 @@ export const BlockForm = () => {
   return (
     <>
       <div className="block-form-container">
-        <div className="block-form-card mx-auto border-gray-50">
-          <div className="form-head">
-            <div
-              className="flex bg-black p-3 rounded-lg mt-2 align-center"
-              onClick={() => {}}
-            >
-              <Add size="1.4em" color={"white"} classNames={["mr-4"]} />
-              <p className="text-md text-white pr-2">
-                Create Your First Time Block
-              </p>
+        <div className="block-form-wrapper flex justify-center">
+          <div className="bock-form-card border-2 border-gray-200 rounded-xl p-6 w-1/2">
+            <div className="form-header my-4">
+              <div className="flex rounded-lg items-center" onClick={() => {}}>
+                <Add size="1.4em" color={"black"} classNames={["mr-4"]} />
+                <p className="text-xl">Create Your First Time Block</p>
+              </div>
             </div>
+
+            <form onSubmit={handleSubmit}>
+              <div className="form-group">
+                <div className="block-name-wrapper flex flex-col">
+                  <label htmlFor="block-name" className="text-md font-medium">
+                    Session Name
+                  </label>
+                  <input
+                    type="text"
+                    id="block-name"
+                    value={sessionName}
+                    onChange={(e) => setSessionName(e.target.value)}
+                    placeholder="e.g., Morning Study Block, Evening Rroutine"
+                    className="bg-gray-100 rounded-md p-2 mt-1"
+                  />
+                </div>
+              </div>
+
+              <div className="duration-wrapper flex justify-between w-full my-4">
+                <div className="hours flex flex-col w-[49%]">
+                  <label htmlFor="total-session-duration">Total Hours</label>
+                  <input
+                    min="0"
+                    max="23"
+                    type="number"
+                    value={sessionHours}
+                    id="total-session-duration"
+                    className="bg-gray-100 rounded-md p-2 mt-1"
+                    placeholder="2"
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      setSessionHours(val === "" ? undefined : Number(val));
+                    }}
+                  />
+                </div>
+                <div className="minutes flex flex-col w-[49%]">
+                  <label htmlFor="total-session-minutes">Total Minutes</label>
+                  <input
+                    type="number"
+                    id="total-session-minutes"
+                    min="0"
+                    max="59"
+                    value={sessionMinutes}
+                    className="bg-gray-100 rounded-md p-2 mt-1"
+                    placeholder="0"
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      setSessionMinutes(val === "" ? undefined : Number(val));
+                    }}
+                  />
+                </div>
+              </div>
+
+              <>
+                {blocks.map((block) => (
+                  <div className="blocklist-wrapper" key={block.id}></div>
+                ))}
+              </>
+
+              <div className="start-session">
+                <button className="start-session-btn" type="submit">
+                  Create Session
+                </button>
+              </div>
+            </form>
           </div>
-
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="block-name">Session Name</label>
-              <input
-                type="text"
-                id="block-name"
-                value={sessionName}
-                onChange={(e) => setSessionName(e.target.value)}
-                placeholder="e.g., Morning Study Block,Study Session"
-              />
-            </div>
-
-            <div className="duration-wrapper flex space-between">
-              <div className="hours">
-                <label htmlFor="total-session-duration">Total Hours</label>
-                <input
-                  type="number"
-                  id="total-session-duration"
-                  min="0"
-                  max="23"
-                  value={sessionHours}
-                  onChange={(e) => {
-                    const val = e.target.value;
-                    setSessionHours(val === "" ? undefined : Number(val));
-                  }}
-                />
-              </div>
-              <div className="minutes">
-                <label htmlFor="total-session-minutes">Total Minutes</label>
-                <input
-                  type="number"
-                  id="total-session-minutes"
-                  min="0"
-                  max="59"
-                  value={sessionMinutes}
-                  onChange={(e) => {
-                    const val = e.target.value;
-                    setSessionMinutes(val === "" ? undefined : Number(val));
-                  }}
-                />
-              </div>
-            </div>
-
-            
-
-            <div className="start-session">
-              <button className="start-session-btn" type="submit">
-                Create Session
-              </button>
-            </div>
-          </form>
         </div>
       </div>
     </>
