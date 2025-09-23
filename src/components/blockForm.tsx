@@ -60,7 +60,7 @@ export const BlockForm = () => {
             <form onSubmit={handleSubmit}>
               <div className="form-group">
                 <div className="block-name-wrapper flex flex-col">
-                  <label htmlFor="block-name" className="text-md font-medium">
+                  <label htmlFor="block-name" className="text-lg font-medium">
                     Session Name
                   </label>
                   <input
@@ -69,13 +69,13 @@ export const BlockForm = () => {
                     value={sessionName}
                     onChange={(e) => setSessionName(e.target.value)}
                     placeholder="e.g., Morning Study Block, Evening Rroutine"
-                    className="bg-gray-100 rounded-md p-2 mt-1"
+                    className="bg-gray-100 rounded-md p-2 mt-2"
                   />
                 </div>
               </div>
 
-              <div className="duration-wrapper flex justify-between w-full my-4">
-                <div className="hours flex flex-col w-[49%]">
+              <div className="duration-wrapper flex justify-between w-full my-8 text-lg font-medium">
+                <div className="hours flex flex-col w-[49%] ">
                   <label htmlFor="total-session-duration">Total Hours</label>
                   <input
                     min="0"
@@ -83,7 +83,7 @@ export const BlockForm = () => {
                     type="number"
                     value={sessionHours}
                     id="total-session-duration"
-                    className="bg-gray-100 rounded-md p-2 mt-1"
+                    className="bg-gray-100 rounded-md p-2 mt-2"
                     placeholder="2"
                     onChange={(e) => {
                       const val = e.target.value;
@@ -99,7 +99,7 @@ export const BlockForm = () => {
                     min="0"
                     max="59"
                     value={sessionMinutes}
-                    className="bg-gray-100 rounded-md p-2 mt-1"
+                    className="bg-gray-100 rounded-md p-2 mt-2"
                     placeholder="0"
                     onChange={(e) => {
                       const val = e.target.value;
@@ -109,16 +109,33 @@ export const BlockForm = () => {
                 </div>
               </div>
 
+              {/* if no block exist, add the tasks, then on creating a block, 
+              add block id into the tasks associated with it */}
+              {blocks.length === 0 && (
+                <TaskForm
+                  blockId={blocks[0]?.id || ""}
+                  addTasks={addTasksToBlock}
+                />
+              )}
+
+              {/* if a block exist, add the task to the block */}
               <>
                 {blocks.map((block) => (
-                  <div className="blocklist-wrapper" key={block.id}></div>
+                  <div className="blocklist-wrapper" key={block.id}>
+                    <TaskForm blockId={block.id} addTasks={addTasksToBlock} />
+                  </div>
                 ))}
               </>
 
-              <div className="start-session">
-                <button className="start-session-btn" type="submit">
-                  Create Session
-                </button>
+              <div className="create-session-container mt-4">
+                <div className="create-session-container w-full">
+                  <button
+                    className="create-session-btn bg-black text-white text-md p-2 rounded-lg w-full"
+                    type="submit"
+                  >
+                    Create Session
+                  </button>
+                </div>
               </div>
             </form>
           </div>
