@@ -69,7 +69,7 @@ export const BlockForm = () => {
                     value={sessionName}
                     onChange={(e) => setSessionName(e.target.value)}
                     placeholder="e.g., Morning Study Block, Evening Rroutine"
-                    className="bg-gray-100 rounded-md p-2 mt-2"
+                    className="bg-gray-100 rounded-md p-2 mt-2 focus:border-4 focus:border-gray-300 focus:outline-gray-300"
                   />
                 </div>
               </div>
@@ -83,7 +83,7 @@ export const BlockForm = () => {
                     type="number"
                     value={sessionHours}
                     id="total-session-duration"
-                    className="bg-gray-100 rounded-md p-2 mt-2"
+                    className="bg-gray-100 rounded-md p-2 mt-2 focus:border-4 focus:border-gray-300 focus:outline-gray-300"
                     placeholder="2"
                     onChange={(e) => {
                       const val = e.target.value;
@@ -99,7 +99,7 @@ export const BlockForm = () => {
                     min="0"
                     max="59"
                     value={sessionMinutes}
-                    className="bg-gray-100 rounded-md p-2 mt-2"
+                    className="bg-gray-100 rounded-md p-2 mt-2 focus:border-4 focus:border-gray-300 focus:outline-gray-300"
                     placeholder="0"
                     onChange={(e) => {
                       const val = e.target.value;
@@ -130,8 +130,11 @@ export const BlockForm = () => {
               <div className="create-session-container mt-4">
                 <div className="create-session-container w-full">
                   <button
-                    className="create-session-btn bg-black text-white text-md p-2 rounded-lg w-full"
                     type="submit"
+                    disabled={
+                      !sessionName || (!sessionHours && !sessionMinutes)
+                    }
+                    className="create-session-btn bg-black text-white text-md p-2 rounded-lg w-full disabled:bg-gray-500 disabled:cursor-not-allowed"
                   >
                     Create Session
                   </button>

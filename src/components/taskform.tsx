@@ -42,7 +42,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ blockId, addTasks }) => {
                   id="task-name"
                   type="text"
                   value={taskValue}
-                  className="bg-gray-100 rounded-md p-2 mt-2 basis-[65%]"
+                  className="bg-gray-100 rounded-md p-2 mt-2 basis-[65%] focus:border-4 focus:border-gray-300 focus:outline-gray-300"
                   onChange={(e) => setTaskValue(e.target.value)}
                   placeholder="Task name( e.g Read Percy Jackson)"
                 />
@@ -53,7 +53,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ blockId, addTasks }) => {
                   placeholder="Minutes"
                   name="task-in-minutes"
                   value={taskDuration ?? ""}
-                  className="bg-gray-100 rounded-md p-2 mt-2 basis-[15%"
+                  className="bg-gray-100 rounded-md p-2 mt-2 basis-[15%] focus:border-4 focus:border-gray-300 focus:outline-gray-300"
                   onChange={(e) => {
                     const val = e.target.value;
                     setTaskDuration(
@@ -63,8 +63,8 @@ const TaskForm: React.FC<TaskFormProps> = ({ blockId, addTasks }) => {
                 />
                 <button
                   type="button"
-                  className="basis-[15%] border-1 border-gray-200 rounded-lg p-2 mt-2"
                   onClick={handleSubmit}
+                  className="basis-[15%] border-1 border-gray-200 rounded-lg p-2 mt-2"
                 >
                   Add
                 </button>
