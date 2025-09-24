@@ -24,7 +24,7 @@ export const BlockForm = () => {
       id: crypto.randomUUID(),
       name: sessionName || "Untitled Block",
       duration: totalDuration,
-      tasks: tasks,
+      tasks: tasks || [],
       completed: sessionEnded,
     };
     setBlocks([...blocks, newBlock]);
