@@ -3,9 +3,13 @@ import type { Block, Task } from "./types";
 import { Add } from "./primitives/icons";
 import TaskForm from "./taskform";
 
-export const BlockForm = () => {
+interface BlockFormProps {
+  blocks: Block[];
+  setBlocks: React.Dispatch<React.SetStateAction<Block[]>>;
+}
+
+export const BlockForm = ({blocks, setBlocks}: BlockFormProps) => {
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [blocks, setBlocks] = useState<Block[]>([]);
   const [sessionEnded, setSessionEnded] = useState<boolean>(false);
   const [sessionName, setSessionName] = useState<string | undefined>("");
   const [sessionHours, setSessionHours] = useState<number | undefined>(
@@ -44,6 +48,8 @@ export const BlockForm = () => {
       )
     );
   };
+
+
 
   return (
     <>

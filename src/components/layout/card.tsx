@@ -1,18 +1,22 @@
-import React, {ReactNode} from 'react'
+import React from "react";
+import type { ReactNode } from "react";
 
 interface CardProps {
+  title: string;
+  icon: ReactNode;
   children?: ReactNode;
 }
 
-export const Card = (CardProps) => {
+export const Card = ({ title, icon, children }: CardProps) => {
   return (
-    <div className="block-form-container">
+    <div className="card-container">
       <div className="block-form-wrapper flex justify-center">
         <div className="bock-form-card border-2 border-gray-200 rounded-xl p-6 w-1/2">
           <div className="form-header my-4">
             <div className="flex rounded-lg items-center" onClick={() => {}}>
-              <Add size="1.4em" color={"black"} classNames={["mr-4"]} />
-              <p className="text-xl">Create Your First Time Block</p>
+              <div className="mr-4">{icon}</div>
+              {/* <Add size="1.4em" color={"black"} classNames={["mr-4"]} /> */}
+              <p className="text-xl">{title}</p>
             </div>
           </div>
 
