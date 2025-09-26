@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import type { Block, Task } from "./types";
 import { Add } from "./primitives/icons";
-import TaskForm from "./taskform";
+import type { Block, Task } from "./types";
 
 interface BlockFormProps {
-  blocks: Block[];
-  setBlocks: React.Dispatch<React.SetStateAction<Block[]>>;
+  addBlock: (newBlock: Block) => void;
 }
 
-export const BlockForm = ({blocks, setBlocks}: BlockFormProps) => {
+export const BlockForm: React.FC<BlockFormProps> = ({
+  addBlock,
+}: BlockFormProps) => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [sessionEnded, setSessionEnded] = useState<boolean>(false);
   const [sessionName, setSessionName] = useState<string | undefined>("");
@@ -31,25 +31,15 @@ export const BlockForm = ({blocks, setBlocks}: BlockFormProps) => {
       tasks: tasks || [],
       completed: sessionEnded,
     };
-    setBlocks([...blocks, newBlock]);
+
+    addBlock(newBlock);
+    // reset form fields
     setSessionName("");
     setSessionHours(undefined);
     setSessionMinutes(undefined);
     setTasks([]);
     setSessionEnded(false);
   };
-
-  const addTasksToBlock = (blockId: string, task: Task) => {
-    setBlocks((prevBlock) =>
-      prevBlock.map((block) =>
-        block.id === blockId
-          ? { ...block, tasks: [...block.tasks, task] }
-          : block
-      )
-    );
-  };
-
-
 
   return (
     <>
@@ -114,24 +104,6 @@ export const BlockForm = ({blocks, setBlocks}: BlockFormProps) => {
                   />
                 </div>
               </div>
-
-              {/* if no block exist, add the tasks, then on creating a block, 
-              add block id into the tasks associated with it */}
-              {blocks.length === 0 && (
-                <TaskForm
-                  blockId={blocks[0]?.id || ""}
-                  addTasks={addTasksToBlock}
-                />
-              )}
-
-              {/* if a block exist, add the task to the block */}
-              <>
-                {blocks.map((block) => (
-                  <div className="blocklist-wrapper" key={block.id}>
-                    <TaskForm blockId={block.id} addTasks={addTasksToBlock} />
-                  </div>
-                ))}
-              </>
 
               <div className="create-session-container mt-4">
                 <div className="create-session-container w-full">
