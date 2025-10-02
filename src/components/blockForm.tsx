@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Add } from "./primitives/icons";
 import type { Block, Task } from "./types";
+import TaskForm from "./taskform";
 
 interface BlockFormProps {
   addBlock: (newBlock: Block) => void;
@@ -13,10 +14,10 @@ export const BlockForm: React.FC<BlockFormProps> = ({
   const [showTask, setShowTask] = useState<boolean>(false);
   const [sessionEnded, setSessionEnded] = useState<boolean>(false);
   const [sessionName, setSessionName] = useState<string | undefined>("");
-  const [sessionHours, setSessionHours] = useState<number | undefined>(
+  const [sessionHours, setSessionHours] = useState<string | undefined>(
     undefined
   );
-  const [sessionMinutes, setSessionMinutes] = useState<number | undefined>(
+  const [sessionMinutes, setSessionMinutes] = useState<string | undefined>(
     undefined
   );
 
@@ -24,7 +25,8 @@ export const BlockForm: React.FC<BlockFormProps> = ({
     e.preventDefault();
     // Logic to handle form submission
 
-    const totalDuration = sessionHours! * 60 + (sessionMinutes || 0);
+    const totalDuration =
+      Number(sessionHours)! * 60 + (Number(sessionMinutes) || 0);
     const newBlock: Block = {
       id: crypto.randomUUID(),
       name: sessionName || "Untitled Block",
@@ -36,8 +38,8 @@ export const BlockForm: React.FC<BlockFormProps> = ({
     addBlock(newBlock);
     // reset form fields
     setSessionName("");
-    setSessionHours(undefined);
-    setSessionMinutes(undefined);
+    setSessionHours('');
+    setSessionMinutes('');
     setTasks([]);
     setSessionEnded(false);
   };
@@ -82,10 +84,7 @@ export const BlockForm: React.FC<BlockFormProps> = ({
                     id="total-session-duration"
                     className="bg-gray-100 rounded-md p-2 mt-2 focus:border-4 focus:border-gray-300 focus:outline-gray-300"
                     placeholder="2"
-                    onChange={(e) => {
-                      const val = e.target.value;
-                      setSessionHours(val === "" ? undefined : Number(val));
-                    }}
+                    onChange={(e) => setSessionHours(e.target.value || "")}
                   />
                 </div>
                 <div className="minutes flex flex-col w-[49%]">
@@ -98,10 +97,7 @@ export const BlockForm: React.FC<BlockFormProps> = ({
                     value={sessionMinutes}
                     className="bg-gray-100 rounded-md p-2 mt-2 focus:border-4 focus:border-gray-300 focus:outline-gray-300"
                     placeholder="0"
-                    onChange={(e) => {
-                      const val = e.target.value;
-                      setSessionMinutes(val === "" ? undefined : Number(val));
-                    }}
+                    onChange={(e) => setSessionMinutes(e.target.value || "")}
                   />
                 </div>
               </div>
@@ -132,7 +128,9 @@ export const BlockForm: React.FC<BlockFormProps> = ({
               </div>
 
               <div className="tasks-container">
-                <div className="tasks-wrapper"></div>
+                <div className="tasks-wrapper">
+                  {showTask && <TaskForm blockId="" addTasks={() => {}} />}
+                </div>
               </div>
 
               <div className="create-session-container mt-4">
@@ -142,7 +140,7 @@ export const BlockForm: React.FC<BlockFormProps> = ({
                     disabled={
                       !sessionName || (!sessionHours && !sessionMinutes)
                     }
-                    className="create-session-btn bg-black text-white text-md p-2 rounded-lg w-full disabled:bg-gray-500 disabled:cursor-not-allowed"
+                    className="create-session-btn bg-black text-white text-md p-2 rounded-lg w-full disabled:bg-gray-300 disabled:text-white disabled:cursor-not-allowed"
                   >
                     Create Session
                   </button>
