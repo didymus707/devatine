@@ -10,6 +10,7 @@ export const BlockForm: React.FC<BlockFormProps> = ({
   addBlock,
 }: BlockFormProps) => {
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [showTask, setShowTask] = useState<boolean>(false);
   const [sessionEnded, setSessionEnded] = useState<boolean>(false);
   const [sessionName, setSessionName] = useState<string | undefined>("");
   const [sessionHours, setSessionHours] = useState<number | undefined>(
@@ -103,6 +104,35 @@ export const BlockForm: React.FC<BlockFormProps> = ({
                     }}
                   />
                 </div>
+              </div>
+
+              <div className="tasks-choice-container flex justify-between items-center">
+                <div className="task-setup">
+                  <p className="text-md text-lg font-medium">Task Setup</p>
+                  <span className="text-sm text-gray-500">Add tasks later</span>
+                </div>
+
+                <div className="toggle-switch w-[23%] flex justify-between items-center text-md">
+                  <label htmlFor="switch-tasks">Add later</label>
+                  <input
+                    type="checkbox"
+                    id="switch-tasks"
+                    role="switch"
+                    checked={showTask}
+                    onChange={() => setShowTask(!showTask)}
+                    className="relative h-6 w-12 appearance-none rounded-full bg-neutral-300 transition-colors duration-300 
+                              before:pointer-events-none before:absolute before:h-6 before:w-6 before:rounded-full before:content-['']
+                              after:absolute after:z-[2] after:mt-[0.1rem] after:ml-[0.1rem]
+                              after:h-5 after:w-5 after:rounded-full after:bg-white after:transition-transform after:duration-300 after:content-['']
+                            checked:bg-black checked:after:translate-x-6
+  "
+                  />
+                  <label htmlFor="switch-tasks">Add now</label>
+                </div>
+              </div>
+
+              <div className="tasks-container">
+                <div className="tasks-wrapper"></div>
               </div>
 
               <div className="create-session-container mt-4">

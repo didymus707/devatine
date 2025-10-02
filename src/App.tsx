@@ -1,4 +1,5 @@
 import { BlockForm } from "./components/blockForm";
+import { BlockList } from "./components/BlockList";
 import { Add } from "./components/primitives/icons";
 
 function App() {
@@ -42,7 +43,7 @@ function App() {
               </p>
             </div>
           </div>
-          <BlockForm />
+          <BlockList />
         </div>
       </div>
     </>
