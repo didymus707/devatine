@@ -150,7 +150,7 @@ export const BlockForm: React.FC<BlockFormProps> = ({
                 </div>
               </div>
 
-              <div className="create-session-container mt-4">
+              <div className="create-session-container mt-8">
                 <div className="create-session-container w-full">
                   <button
                     type="submit"
