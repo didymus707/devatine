@@ -25,21 +25,25 @@ export const BlockForm: React.FC<BlockFormProps> = ({
     e.preventDefault();
     // Logic to handle form submission
 
+    const blockId = crypto.randomUUID();
+
+    const tasksWithBlockId = tasks.map((task) => ({ ...task, id: blockId }));
+
     const totalDuration =
       Number(sessionHours)! * 60 + (Number(sessionMinutes) || 0);
     const newBlock: Block = {
-      id: crypto.randomUUID(),
+      id: blockId,
       name: sessionName || "Untitled Block",
       duration: totalDuration,
-      tasks: tasks || [],
+      tasks: tasksWithBlockId,
       completed: sessionEnded,
     };
 
     addBlock(newBlock);
     // reset form fields
     setSessionName("");
-    setSessionHours('');
-    setSessionMinutes('');
+    setSessionHours("");
+    setSessionMinutes("");
     setTasks([]);
     setSessionEnded(false);
   };
