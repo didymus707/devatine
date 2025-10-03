@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Add } from "./primitives/icons";
-import type { Block, Task } from "./types";
+import type { Block, Task } from "../types";
 import TaskForm from "./taskform";
 
 interface BlockFormProps {

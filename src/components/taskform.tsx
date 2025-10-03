@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { Task } from "./types";
+import type { Task } from "../types";
 
 interface TaskFormProps {
   blockId: string;
@@ -8,24 +8,24 @@ interface TaskFormProps {
 
 const TaskForm: React.FC<TaskFormProps> = ({ blockId, addTasks }) => {
   const [taskValue, setTaskValue] = useState("");
-  const [taskDuration, setTaskDuration] = useState<number | undefined>(
+  const [taskDuration, setTaskDuration] = useState<string | undefined>(
     undefined
   );
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!taskValue.trim() || !taskDuration || taskDuration <= 0) return;
+    if (!taskValue.trim() || !taskDuration || Number(taskDuration) <= 0) return;
 
     const newTask: Task = {
       id: crypto.randomUUID(),
       blockId: blockId,
       name: taskValue,
-      duration: taskDuration,
+      duration: Number(taskDuration),
       completed: false,
     };
     addTasks(blockId, newTask);
     setTaskValue("");
-    setTaskDuration(undefined);
+    setTaskDuration("");
   };
 
   return (
@@ -54,12 +54,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ blockId, addTasks }) => {
                   name="task-in-minutes"
                   value={taskDuration ?? ""}
                   className="bg-gray-100 rounded-lg p-2 mt-2 basis-[15%] focus:border-4 focus:border-gray-300 focus:outline-gray-300"
-                  onChange={(e) => {
-                    const val = e.target.value;
-                    setTaskDuration(
-                      val === "" ? undefined : Number(e.target.value)
-                    );
-                  }}
+                  onChange={(e) => setTaskDuration(e.target.value || "")}
                 />
                 <button
                   type="button"

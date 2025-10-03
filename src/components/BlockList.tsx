@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { Block, Task } from "./types";
+import type { Block, Task } from "../types";
 import { BlockForm } from "./blockForm";
 
 export const BlockList = () => {
