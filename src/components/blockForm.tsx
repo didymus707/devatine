@@ -45,6 +45,7 @@ export const BlockForm: React.FC<BlockFormProps> = ({
     setSessionHours("");
     setSessionMinutes("");
     setTasks([]);
+    setShowTask(false);
     setSessionEnded(false);
   };
 
@@ -134,6 +135,18 @@ export const BlockForm: React.FC<BlockFormProps> = ({
               <div className="tasks-container">
                 <div className="tasks-wrapper">
                   {showTask && <TaskForm setTasks={setTasks} />}
+                </div>
+
+                <div className="tasklist-wrapper">
+                  {tasks.length > 0 && (
+                    <>
+                      <ul className="tasklist">
+                        {tasks.map((task) => (
+                          <li key={task.id}>{task.name}</li>
+                        ))}
+                      </ul>
+                    </>
+                  )}
                 </div>
               </div>
 

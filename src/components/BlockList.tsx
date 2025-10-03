@@ -9,15 +9,15 @@ export const BlockList = () => {
     setBlocks((prevBlocks) => [...prevBlocks, newBlock]);
   };
 
-  const addTasksToBlock = (blockId: string, task: Task) => {
-    setBlocks((prevBlock) =>
-      prevBlock.map((block) =>
-        block.id === blockId
-          ? { ...block, tasks: [...block.tasks, task] }
-          : block
-      )
-    );
-  };
+  // const addTasksToBlock = (blockId: string, task: Task) => {
+  //   setBlocks((prevBlock) =>
+  //     prevBlock.map((block) =>
+  //       block.id === blockId
+  //         ? { ...block, tasks: [...block.tasks, task] }
+  //         : block
+  //     )
+  //   );
+  // };
 
   return (
     <>
