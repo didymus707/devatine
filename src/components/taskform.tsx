@@ -2,11 +2,10 @@ import { useState } from "react";
 import type { Task } from "../types";
 
 interface TaskFormProps {
-  blockId: string;
-  addTasks: (blockId: string, task: Task) => void;
+  setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
 }
 
-const TaskForm: React.FC<TaskFormProps> = ({ blockId, addTasks }) => {
+const TaskForm: React.FC<TaskFormProps> = ({ setTasks }) => {
   const [taskValue, setTaskValue] = useState("");
   const [taskDuration, setTaskDuration] = useState<string | undefined>(
     undefined
@@ -18,12 +17,12 @@ const TaskForm: React.FC<TaskFormProps> = ({ blockId, addTasks }) => {
 
     const newTask: Task = {
       id: crypto.randomUUID(),
-      blockId: blockId,
+      blockId: "",
       name: taskValue,
       duration: Number(taskDuration),
       completed: false,
     };
-    addTasks(blockId, newTask);
+    setTasks((prevTasks) => [...prevTasks, newTask]);
     setTaskValue("");
     setTaskDuration("");
   };

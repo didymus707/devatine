@@ -133,7 +133,7 @@ export const BlockForm: React.FC<BlockFormProps> = ({
 
               <div className="tasks-container">
                 <div className="tasks-wrapper">
-                  {showTask && <TaskForm blockId="" addTasks={() => {}} />}
+                  {showTask && <TaskForm setTasks={setTasks} />}
                 </div>
               </div>
 
